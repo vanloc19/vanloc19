@@ -1,7 +1,5 @@
-# 👋 Xin chào, Tôi là Tô Văn Lộc
-
 <div align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Roboto+Condensed&size=30&duration=3000&pause=1000&color=00D9FF&center=true&vCenter=true&width=600&lines=Full+Stack+Developer;Passionate+About+Coding;Building+Awesome+Projects" alt="Typing SVG" />
+  <h1>👋 Xin chào, Tôi là <img src="https://readme-typing-svg.herokuapp.com?font=Roboto+Condensed&size=35&duration=3000&pause=1000&color=00D9FF&vCenter=true&lines=Tô+Văn+Lộc" alt="Typing SVG" /></h1>
 </div>
 
 ---
@@ -44,22 +42,6 @@
 <div align="center">
   <img src="https://github-readme-streak-stats.demolab.com/?user=vanloc19&theme=tokyonight" alt="GitHub Streak" />
 </div>
-
----
-
-## 🎯 Featured Projects
-
-### 📱 InstagramClone
-Một ứng dụng clone Instagram với đầy đủ tính năng
-
-### 📈 Trendly
-Ứng dụng phân tích và theo dõi xu hướng
-
-### 🎮 GunnyServer
-Server backend cho game Gunny (C#)
-
-### 🎮 GunnyArena
-Arena game project (Batchfile)
 
 ---
 
