@@ -15,7 +15,7 @@
         <animate attributeName="offset" values="0.5;2.5;0.5" dur="3s" repeatCount="indefinite"/>
       </stop>
     </linearGradient>
-
+    
     <!-- Glow effect -->
     <filter id="glow">
       <feGaussianBlur stdDeviation="3" result="blur"/>
@@ -25,23 +25,23 @@
       </feMerge>
     </filter>
   </defs>
-
+  
   <!-- No background - fully transparent -->
-
+  
   <!-- Static text "Hi, I'm " -->
-  <text x="20" y="60"
-        font-family="'Segoe UI', Arial, sans-serif"
-        font-size="36"
-        font-weight="600"
+  <text x="20" y="60" 
+        font-family="'Segoe UI', Arial, sans-serif" 
+        font-size="36" 
+        font-weight="600" 
         fill="#8b949e">
-    Hi, I'm
+    Hi, I'm 
   </text>
-
+  
   <!-- Animated text "Tô Văn Lộc" -->
-  <text x="148" y="60"
-        font-family="'Segoe UI', Arial, sans-serif"
-        font-size="36"
-        font-weight="700"
+  <text x="148" y="60" 
+        font-family="'Segoe UI', Arial, sans-serif" 
+        font-size="36" 
+        font-weight="700" 
         fill="url(#grad)"
         filter="url(#glow)">
     Tô Văn Lộc
