@@ -1,7 +1,6 @@
-<svg width="100%" height="100" viewBox="0 0 800 100" xmlns="http://www.w3.org/2000/svg">
+<svg width="100%" height="200" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <!-- Animated gradient -->
-    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+    <linearGradient id="gradText" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#667eea">
         <animate attributeName="offset" values="-0.5;1.5;-0.5" dur="3s" repeatCount="indefinite"/>
       </stop>
@@ -15,8 +14,19 @@
         <animate attributeName="offset" values="0.5;2.5;0.5" dur="3s" repeatCount="indefinite"/>
       </stop>
     </linearGradient>
-    
-    <!-- Glow effect -->
+
+    <linearGradient id="gradBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a2a6c">
+        <animate attributeName="offset" values="-0.2;1.2;-0.2" dur="5s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="50%" stop-color="#b21f1f">
+        <animate attributeName="offset" values="0.3;1.7;0.3" dur="5s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" stop-color="#fdbb2d">
+        <animate attributeName="offset" values="0.8;2.2;0.8" dur="5s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+
     <filter id="glow">
       <feGaussianBlur stdDeviation="3" result="blur"/>
       <feMerge>
@@ -24,25 +34,31 @@
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
+
+    <filter id="softGlowBg">
+      <feGaussianBlur stdDeviation="15" result="blurBg"/>
+      <feFlood flood-color="white" flood-opacity="0.2" result="floodBg"/>
+      <feComposite in="floodBg" in2="blurBg" operator="in" result="compBg"/>
+      <feBlend in="SourceGraphic" in2="compBg" mode="screen"/>
+    </filter>
   </defs>
-  
-  <!-- No background - fully transparent -->
-  
-  <!-- Static text "Hi, I'm " -->
-  <text x="20" y="60" 
-        font-family="'Segoe UI', Arial, sans-serif" 
-        font-size="36" 
-        font-weight="600" 
-        fill="#8b949e">
-    Hi, I'm 
+
+  <rect x="0" y="0" width="100%" height="100%" fill="url(#gradBg)" filter="url(#softGlowBg)"/>
+
+  <text x="20" y="100"
+        font-family="'Segoe UI', Arial, sans-serif"
+        font-size="48"
+        font-weight="600"
+        fill="#e0e0e0"
+        filter="url(#glow)">
+    Hi, I'm
   </text>
-  
-  <!-- Animated text "Tô Văn Lộc" -->
-  <text x="148" y="60" 
-        font-family="'Segoe UI', Arial, sans-serif" 
-        font-size="36" 
-        font-weight="700" 
-        fill="url(#grad)"
+
+  <text x="180" y="100"
+        font-family="'Segoe UI', Arial, sans-serif"
+        font-size="48"
+        font-weight="700"
+        fill="url(#gradText)"
         filter="url(#glow)">
     Tô Văn Lộc
   </text>
