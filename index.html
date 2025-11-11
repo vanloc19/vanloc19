@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vanloc19 - GitHub Profile</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        overflow: hidden;
+        background: linear-gradient(
+          135deg,
+          #0a0e27 0%,
+          #1a1a2e 50%,
+          #16213e 100%
+        );
+        font-family: "Arial", sans-serif;
+      }
+
+      #canvas-container {
+        width: 100%;
+        height: 100vh;
+        position: relative;
+      }
+
+      .content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        z-index: 10;
+        color: white;
+      }
+
+      .greeting {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        animation: fadeIn 2s ease-in;
+      }
+
+      .name {
+        font-size: 2.5rem;
+        color: #00d9ff;
+        text-shadow: 0 0 30px rgba(0, 217, 255, 0.8);
+        animation: fadeIn 2s ease-in 0.5s both;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .stars {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+      }
+
+      .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle 3s infinite;
+      }
+
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.3;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="canvas-container">
+      <canvas id="wave-canvas"></canvas>
+      <div class="stars" id="stars"></div>
+      <div class="content">
+        <div class="greeting">Hi Aliens! 👋</div>
+        <div class="name">I'm Tô Văn Lộc from the Earth.</div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+      // Create stars background
+      function createStars() {
+        const starsContainer = document.getElementById("stars");
+        for (let i = 0; i < 200; i++) {
+          const star = document.createElement("div");
+          star.className = "star";
+          star.style.left = Math.random() * 100 + "%";
+          star.style.top = Math.random() * 100 + "%";
+          star.style.animationDelay = Math.random() * 3 + "s";
+          star.style.width = star.style.height = Math.random() * 3 + 1 + "px";
+          starsContainer.appendChild(star);
+        }
+      }
+
+      createStars();
+
+      // Three.js Wave Effect
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+      );
+      const renderer = new THREE.WebGLRenderer({
+        canvas: document.getElementById("wave-canvas"),
+        alpha: true,
+        antialias: true,
+      });
+
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+
+      // Create wave geometry
+      const geometry = new THREE.PlaneGeometry(20, 20, 128, 128);
+      const material = new THREE.MeshPhongMaterial({
+        color: 0x00d9ff,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.6,
+        side: THREE.DoubleSide,
+      });
+
+      const wave = new THREE.Mesh(geometry, material);
+      wave.rotation.x = -Math.PI / 2;
+      scene.add(wave);
+
+      // Add second wave layer
+      const geometry2 = new THREE.PlaneGeometry(20, 20, 128, 128);
+      const material2 = new THREE.MeshPhongMaterial({
+        color: 0x4fc08d,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.4,
+        side: THREE.DoubleSide,
+      });
+
+      const wave2 = new THREE.Mesh(geometry2, material2);
+      wave2.rotation.x = -Math.PI / 2;
+      wave2.position.y = -0.5;
+      scene.add(wave2);
+
+      // Add third wave layer
+      const geometry3 = new THREE.PlaneGeometry(20, 20, 128, 128);
+      const material3 = new THREE.MeshPhongMaterial({
+        color: 0x61dafb,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.3,
+        side: THREE.DoubleSide,
+      });
+
+      const wave3 = new THREE.Mesh(geometry3, material3);
+      wave3.rotation.x = -Math.PI / 2;
+      wave3.position.y = -1;
+      scene.add(wave3);
+
+      // Lighting
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+      scene.add(ambientLight);
+
+      const directionalLight = new THREE.DirectionalLight(0x00d9ff, 1);
+      directionalLight.position.set(5, 10, 5);
+      scene.add(directionalLight);
+
+      const pointLight = new THREE.PointLight(0x4fc08d, 1, 100);
+      pointLight.position.set(-5, 5, 5);
+      scene.add(pointLight);
+
+      camera.position.set(0, 5, 10);
+      camera.lookAt(0, 0, 0);
+
+      // Animation
+      const vertices = wave.geometry.attributes.position.array;
+      const vertices2 = wave2.geometry.attributes.position.array;
+      const vertices3 = wave3.geometry.attributes.position.array;
+      let time = 0;
+
+      function animate() {
+        time += 0.01;
+
+        // Animate first wave
+        for (let i = 0; i < vertices.length; i += 3) {
+          const x = vertices[i];
+          const z = vertices[i + 2];
+          vertices[i + 1] =
+            Math.sin(x * 0.5 + time) * Math.cos(z * 0.5 + time) * 0.5;
+        }
+        wave.geometry.attributes.position.needsUpdate = true;
+
+        // Animate second wave
+        for (let i = 0; i < vertices2.length; i += 3) {
+          const x = vertices2[i];
+          const z = vertices2[i + 2];
+          vertices2[i + 1] =
+            Math.sin(x * 0.3 + time * 1.2) *
+            Math.cos(z * 0.3 + time * 1.2) *
+            0.4;
+        }
+        wave2.geometry.attributes.position.needsUpdate = true;
+
+        // Animate third wave
+        for (let i = 0; i < vertices3.length; i += 3) {
+          const x = vertices3[i];
+          const z = vertices3[i + 2];
+          vertices3[i + 1] =
+            Math.sin(x * 0.4 + time * 0.8) *
+            Math.cos(z * 0.4 + time * 0.8) *
+            0.3;
+        }
+        wave3.geometry.attributes.position.needsUpdate = true;
+
+        // Rotate waves slightly
+        wave.rotation.z += 0.001;
+        wave2.rotation.z -= 0.001;
+        wave3.rotation.z += 0.0005;
+
+        renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+      }
+
+      // Handle window resize
+      window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+      animate();
+    </script>
+  </body>
+</html>
